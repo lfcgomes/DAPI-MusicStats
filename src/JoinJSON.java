@@ -20,7 +20,13 @@ import org.json.JSONObject;
 
 
 public class JoinJSON {
-
+	
+	
+	public static final String DICIONARIO_PATH = "E:\\dicionario.txt";
+	public static final String FINALFILE_PATH = "E:\\final.json";
+	public static final String MM_PATH = "E:\\Faculdade\\5º Ano\\1º Semestre\\DAPI\\mxm_dataset_train.txt";
+	public static final String LASTFM_PATH = "E:\\Faculdade\\5º Ano\\1º Semestre\\DAPI\\lastfm_subset\\B\\I\\J";
+	public static boolean READ = false;
 	public static void main(String[] args) {
 
 
@@ -29,28 +35,28 @@ public class JoinJSON {
 		 * Criação do Objeto JSONObject
 		 */
 		int c = 0;
-		//System.out.println(verify("E:\\Faculdade\\5º Ano\\1º Semestre\\DAPI\\lastfm_subset", c));
-		System.out.println(verify("E:\\Faculdade\\5º Ano\\1º Semestre\\DAPI\\lastfm_subset\\B\\I\\J",c));
+		
+		System.out.println(verify(LASTFM_PATH,c));
 	}
-
+	//Função que verifica se a música tem uma letra adicionada. No caso da resposta ser afirmativa, adiciona a letra ao ficheiro e guarda. No fim
+	//acrescenta tudo ao ficheiro .json definido pela variável FINALFILE_PATH
 	public static int verify(String path, int count) {
 
 		FileInputStream fstream;
 
 		try {
 
-			
-			
-
-			FileWriter file = new FileWriter("E:\\test.json");
+			FileWriter file = new FileWriter(FINALFILE_PATH);
 			FileWriter teste = new FileWriter("E:\\test.txt");
 			
 			
 			File root = new File( path );
 			File[] list = root.listFiles();
+			JSONArray objects = new JSONArray();
+			JSONObject global = new JSONObject();
 			
 			for ( File f : list ) {
-				fstream = new FileInputStream("E:\\Faculdade\\5º Ano\\1º Semestre\\DAPI\\mxm_dataset_train.txt");
+				fstream = new FileInputStream(MM_PATH);
 				DataInputStream in = new DataInputStream(fstream);
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
 				String strLine;
@@ -65,44 +71,69 @@ public class JoinJSON {
 						}
 						else 
 							// Dicionário
-
-							if(strLine.charAt(0) == '%'){
-								// TODO Por o dicionário num txt em separado e acrescentar um bool no fim para assegurar que este processo 
+							if(strLine.charAt(0) == '%' && READ==false){
+								// TODO Por o dicionário num txt e acrescentar um bool no fim para assegurar que este processo 
 								//não é repetido
+								
+								READ = true;
+								
+								//ignora o %
+								strLine = strLine.substring(1);
+								
+								System.out.println("entrou no dicionario");
+								
+								FileWriter dicionario = new FileWriter(DICIONARIO_PATH);
+								
+								//poe no dicionario a primeira palavra
+								String word = strLine.substring(0,strLine.indexOf(','));
+								dicionario.append(word+"\n");
+								//Pega no resto da linha de palavras e vai tratar uma a uma e colocá-la no ficheiro de texto
+								strLine = strLine.substring(strLine.indexOf(',')+1);
+								
+								//Se encontrar um ',' é porque ainda há palavras para tratar
+								while(strLine.indexOf(',') != -1){
+									word = strLine.substring(0,strLine.indexOf(','));
+									strLine = strLine.substring(strLine.indexOf(',')+1);
+									dicionario.append(word+"\n");
+								}
+								//poe no dicionario a ultima palavra
+								dicionario.append(strLine);
+								
+								System.out.println("saiu o dicionario");
+								dicionario.flush();
+								dicionario.close();
 							}
 							else
 							{
+								//Só entra neste pedaço de código se a linha lida não for nem comentário, nem dicionario, ou seja, é música
 								int ind = strLine.indexOf(',');
 								String lyricID = strLine.substring(0, ind);
 								String temp = strLine.substring(ind+1);
 								String lyrics = temp.substring(temp.indexOf(',')+1);
-
-								Musica m = new Musica();
-
+								
+								
 								if(lyricID.equals(f.getName().substring(0,f.getName().indexOf(".")))){
 
-									
-									teste.write(lyricID);
+									//Este bloco é executado se a musica tiver uma letra. Caso contrário é ignorado
+									teste.write(lyricID+"\n");
 									Scanner s = new Scanner(new File(f.getAbsoluteFile().toString()));
 									String jsonFile = "";
 									while(s.hasNextLine())  jsonFile += s.nextLine();
 
 									JSONObject j = new JSONObject(jsonFile);
 									j.put("lyrics", lyrics);
-								
+									
 									System.out.println("match");
-
-
-									file.write(j.toString());
-
+									objects.put(j);
 								}
-
 							}
 					}
 				}
 				count++;
 
 			}
+			global.put("musicas", objects);
+			file.write(global.toString());
 			file.flush();
 			file.close();
 			teste.close();

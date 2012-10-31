@@ -9,7 +9,7 @@ public class Musica {
 	private HashMap<String,Integer> similiars;
 	private HashMap<String,Integer> tags;
 	
-	
+
 	public String getArtist() {
 		return artist;
 	}
