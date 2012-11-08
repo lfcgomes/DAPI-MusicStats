@@ -32,7 +32,7 @@ public class JoinJSON {
 
 
 		/*
-		 * Criação do Objetos JSONObject
+		 * Criação do Objeto JSONObject
 		 */
 		
 		
