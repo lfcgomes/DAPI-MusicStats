@@ -22,10 +22,10 @@ import org.json.JSONObject;
 public class JoinJSON {
 	
 	
-	public static final String DICIONARIO_PATH = "E:\\dicionario.txt";
-	public static final String FINALFILE_PATH = "E:\\final.json";
-	public static final String MM_PATH = "E:\\Faculdade\\5º Ano\\1º Semestre\\DAPI\\mxm_dataset_train.txt";
-	public static final String LASTFM_PATH = "E:\\Faculdade\\5º Ano\\1º Semestre\\DAPI\\lastfm_subset\\B\\I\\J";
+	public static final String DICIONARIO_PATH = "E:\\Faculdade\\5º ano\\1º Semestre\\DAPI\\datasets\\dicionario.txt";
+	public static final String FINALFILE_PATH = "E:\\Faculdade\\5º ano\\1º Semestre\\DAPI\\datasets\\final.json";
+	public static final String MM_PATH = "E:\\Faculdade\\5º ano\\1º Semestre\\DAPI\\datasets\\mxm_dataset_train.txt";
+	public static final String LASTFM_PATH = "E:\\Faculdade\\5º ano\\1º Semestre\\DAPI\\datasets\\lastfm_train";
 	public static boolean READ = false;
 	public static void main(String[] args) {
 
@@ -34,35 +34,55 @@ public class JoinJSON {
 		/*
 		 * Criação do Objeto JSONObject
 		 */
-		int c = 0;
 		
-		System.out.println(verify(LASTFM_PATH,c));
+		
+		try {
+			int c=1;
+			JSONObject global = new JSONObject();
+			System.out.println(LASTFM_PATH);
+			FileWriter file;
+			JSONArray objects = new JSONArray();
+			objects = verify(LASTFM_PATH,c, objects);
+			
+			file = new FileWriter(FINALFILE_PATH);
+			global.put("musicas", objects);
+			file.write(global.toString());
+			file.flush();
+			file.close();
+			System.out.println("done");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	//Função que verifica se a música tem uma letra adicionada. No caso da resposta ser afirmativa, adiciona a letra ao ficheiro e guarda. No fim
 	//acrescenta tudo ao ficheiro .json definido pela variável FINALFILE_PATH
-	public static int verify(String path, int count) {
+	public static JSONArray verify(String path, int count, JSONArray objects ) {
 
 		FileInputStream fstream;
 
 		try {
 
-			FileWriter file = new FileWriter(FINALFILE_PATH);
-			FileWriter teste = new FileWriter("E:\\test.txt");
+			
+			//FileWriter teste = new FileWriter("E:\\test.txt");
 			
 			
 			File root = new File( path );
 			File[] list = root.listFiles();
-			JSONArray objects = new JSONArray();
-			JSONObject global = new JSONObject();
+			
+			
 			
 			for ( File f : list ) {
 				fstream = new FileInputStream(MM_PATH);
 				DataInputStream in = new DataInputStream(fstream);
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
 				String strLine;
-				System.out.println(f.getName());
+				//System.out.println(f.getName());
 				if ( f.isDirectory() ) {
-					count = verify(f.getAbsolutePath(), count);
+					System.out.println(f.getAbsolutePath());
+					objects = verify(f.getAbsolutePath(), count, objects);
 				}
 				else{
 					while ((strLine = br.readLine()) != null){
@@ -115,7 +135,7 @@ public class JoinJSON {
 								if(lyricID.equals(f.getName().substring(0,f.getName().indexOf(".")))){
 
 									//Este bloco é executado se a musica tiver uma letra. Caso contrário é ignorado
-									teste.write(lyricID+"\n");
+									//teste.write(lyricID+"\n");
 									Scanner s = new Scanner(new File(f.getAbsoluteFile().toString()));
 									String jsonFile = "";
 									while(s.hasNextLine())  jsonFile += s.nextLine();
@@ -123,8 +143,9 @@ public class JoinJSON {
 									JSONObject j = new JSONObject(jsonFile);
 									j.put("lyrics", lyrics);
 									
-									System.out.println("match");
+									//System.out.println("match");
 									objects.put(j);
+									break;
 								}
 							}
 					}
@@ -132,11 +153,8 @@ public class JoinJSON {
 				count++;
 
 			}
-			global.put("musicas", objects);
-			file.write(global.toString());
-			file.flush();
-			file.close();
-			teste.close();
+			
+			//teste.close();
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -146,7 +164,7 @@ public class JoinJSON {
 
 
 
-		return count;
+		return objects;
 	}
 	//finalfile.put(jsonOne);
 	//finalfile.put(jsonTwo);
