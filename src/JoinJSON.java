@@ -23,7 +23,7 @@ public class JoinJSON {
 	
 	
 	public static final String DICIONARIO_PATH = "E:\\Faculdade\\5º ano\\1º Semestre\\DAPI\\datasets\\dicionario.txt";
-	public static final String FINALFILE_PATH = "E:\\Faculdade\\5º ano\\1º Semestre\\DAPI\\datasets\\final.json";
+	public static final String FINALFILE_PATH = "E:\\Faculdade\\5º ano\\1º Semestre\\DAPI\\datasets\\final.txt";
 	public static final String MM_PATH = "E:\\Faculdade\\5º ano\\1º Semestre\\DAPI\\datasets\\mxm_dataset_train.txt";
 	public static final String LASTFM_PATH = "E:\\Faculdade\\5º ano\\1º Semestre\\DAPI\\datasets\\lastfm_train";
 	public static boolean READ = false;
@@ -38,15 +38,17 @@ public class JoinJSON {
 		
 		try {
 			int c=1;
-			JSONObject global = new JSONObject();
+			//JSONObject global = new JSONObject();
 			System.out.println(LASTFM_PATH);
 			FileWriter file;
-			JSONArray objects = new JSONArray();
-			objects = verify(LASTFM_PATH,c, objects);
-			
+			//JSONArray objects = new JSONArray()
 			file = new FileWriter(FINALFILE_PATH);
-			global.put("musicas", objects);
-			file.write(global.toString());
+			verify(LASTFM_PATH,c, file);
+			
+			//String original = "1:17,2:5,3:7,4:8,5:10,6:1,7:9,8:12,9:5,10:6,11:7,12:8,13:1";
+			//System.out.println(lyricsToString(original));
+			//global.put("musicas", file);
+			//file.write(global.toString());
 			file.flush();
 			file.close();
 			System.out.println("done");
@@ -59,7 +61,7 @@ public class JoinJSON {
 	}
 	//Função que verifica se a música tem uma letra adicionada. No caso da resposta ser afirmativa, adiciona a letra ao ficheiro e guarda. No fim
 	//acrescenta tudo ao ficheiro .json definido pela variável FINALFILE_PATH
-	public static JSONArray verify(String path, int count, JSONArray objects ) {
+	public static boolean verify(String path, int count, FileWriter finalfile ) {
 
 		FileInputStream fstream;
 
@@ -82,7 +84,7 @@ public class JoinJSON {
 				//System.out.println(f.getName());
 				if ( f.isDirectory() ) {
 					System.out.println(f.getAbsolutePath());
-					objects = verify(f.getAbsolutePath(), count, objects);
+					verify(f.getAbsolutePath(), count, finalfile);
 				}
 				else{
 					while ((strLine = br.readLine()) != null){
@@ -141,10 +143,12 @@ public class JoinJSON {
 									while(s.hasNextLine())  jsonFile += s.nextLine();
 
 									JSONObject j = new JSONObject(jsonFile);
-									j.put("lyrics", lyrics);
+									
+									j.put("lyrics", lyricsToString(lyrics));
 									
 									//System.out.println("match");
-									objects.put(j);
+									finalfile.append(j.toString()+",");
+									
 									break;
 								}
 							}
@@ -164,12 +168,79 @@ public class JoinJSON {
 
 
 
-		return objects;
+		return true;
 	}
 	//finalfile.put(jsonOne);
 	//finalfile.put(jsonTwo);
+	public static String lyricsToString(String original){
+				
+		//file = new FileWriter(FINALFILE_PATH);
+		Scanner s;
+		String result = "";
+		try {
+			
+			String word;
+			
+			//while(s.hasNextLine())  jsonFile += s.nextLine();
+			
+			while(original.indexOf(',') != -1){
+				int index;
+				int n_times;
+				
+				s = new Scanner(new File(DICIONARIO_PATH));
+				word = original.substring(0,original.indexOf(','));
+				index = Integer.parseInt(word.substring(0,word.indexOf(':')));
+				n_times = Integer.parseInt(word.substring(word.indexOf(':')+1));
+				
+				int cycle_index = 1;
+				//String original = "1:17,2:5,3:7,4:8,5:10,6:1,7:9,8:12,9:5,10:6,11:7,12:8,13:1";
+				while(s.hasNextLine()){
+					String temp_word = s.nextLine();
+					
+					if(cycle_index == index){
+						for(int i=0; i<n_times; i++)
+							result += temp_word + " ";
+						break;
+					}
+					cycle_index++;
+					
+					
+					
+				}
+				original = original.substring(original.indexOf(',')+1);
+			}
+			
+			s = new Scanner(new File(DICIONARIO_PATH));
+			word = original;
+			int index = Integer.parseInt(word.substring(0,word.indexOf(':')));
+			int n_times = Integer.parseInt(word.substring(word.indexOf(':')+1));
+			
+			int cycle_index = 1;
+			//String original = "1:17,2:5,3:7,4:8,5:10,6:1,7:9,8:12,9:5,10:6,11:7,12:8,13:1";
+			while(s.hasNextLine()){
+				String temp_word = s.nextLine();
+				
+				if(cycle_index == index){
+					for(int i=0; i<n_times; i++)
+						result += temp_word + " ";
+					break;
+				}
+				cycle_index++;
+				
+				
+				
+			}
 
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 
+	
 	public int compareSongs(String lyricPath, String songPath){
 
 		int n=0;
