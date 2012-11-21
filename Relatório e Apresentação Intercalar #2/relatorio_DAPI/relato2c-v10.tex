@@ -71,16 +71,14 @@ bibliográficas relevantes, tais como
 
 \section{Ferramenta a usar}\label{sec:ferramenta}
 
-Para este trabalho, escolhemos a ferramenta \textit{open-source} Lucene. Com ela, podemos indexar o conjunto de dados que prentedemos, aumentando assim a velocidade das consultas. Para além disso, é uma ferramente com imensa documentação online, o que permite, também, uma rápida e fácil aprendizagem dos processos internos da ferramenta.
+Para este trabalho, escolhemos a ferramenta \textit{open-source} Lucene. Com ela, podemos indexar o conjunto de dados que prentedemos, aumentando assim a velocidade das consultas. Para além disso, é uma ferramenta com imensa documentação online, o que permite uma rápida e fácil aprendizagem dos processos internos da ferramenta.
 
-\section{Geraçao dos Índices}\label{sec:indices}
+\section{Geração dos Índices}\label{sec:indices}
 
-Como pretendemos dar resposta às interrogações dos utilizadores, teríamos obrigatoriamente que gerar alguns índices para aumentar a rapidez de resposta. Mas não faria sentido indexarmos todos os campos do dataset. Em primeiro lugar, porque seria um processo bastante moroso, em segundo lugar, porque não faria sentido indexar, por exemplo, campos relativos ao ID da música, pois não iria haver utilizadores a fazer interrogações por esse campo. Assim, estimámos quais os campos de pesquisa que mais vezes vão ser utilizados, e foram esses os escolhidos para a indexação. Como tal, indexámos os campo \textit{lyrics}, que tem todas as palavras da letra da música, \textit{artist}, que tem o nome do intérprete dessa música. Para isso, e tal como referido na secção anterior, utilizámos a biblioteca Lucene, que contempla funções de criação e gestão de índices, assim como auxiliares de pesquisa de informação.
+Como pretendemos dar resposta às interrogações dos utilizadores, teríamos obrigatoriamente que gerar índices para aumentar a rapidez de resposta. No entanto, não faria sentido indexarmos todos os campos do dataset, em primeiro lugar porque seria um processo bastante moroso e, em segundo lugar, porque não faria sentido indexar, por exemplo, campos relativos ao ID da música já que não iria haver utilizadores a fazer interrogações por esse campo. Assim, estimámos quais os campos de pesquisa que mais vezes vão ser utilizados, e foram esses os escolhidos para a indexação. Desta forma, indexámos os campos \textit{lyrics} - que tem todas as palavras da letra da música - e \textit{artist}, que tem o nome do intérprete dessa música. Para isso, e tal como referido na secção anterior, utilizámos a biblioteca Lucene, que contempla funções de criação e gestão de índices, assim como auxiliares de pesquisa de informação.
 
 
 \section{Demonstração do processo de interrogação}\label{sec:demonstração}
-
-
 
 Como referido anteriomente, após o dataset estar devidamente construido, a sua consulta deve responder a uma variedade de perguntas, entre as quais podemos destacar:
 
