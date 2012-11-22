@@ -45,46 +45,24 @@ public class MusicStats {
     public static final String finalFile_PATH = "filesToIndex\\subfile.json";
     public static final boolean create = false;
     
+       
     public static void main(String[] args) throws IOException, ParseException {
         
         // 0. Specify the analyzer for tokenizing text.
         //    The same analyzer should be used for indexing and searching
-        
-        
-        
-        // 1. create the index
-        
+        GUI g = new GUI();
+        g.show();
+        // query
         StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_40);
         Directory dir = FSDirectory.open(new File("index"));
-        final File doc = new File(finalFile_PATH);
-        
-        IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, analyzer);
-        
-        if (create) {
-            // Create a new index in the directory, removing any
-            // previously indexed documents:
-            iwc.setOpenMode(OpenMode.CREATE);
-        } else {
-            // Add new documents to an existing index:
-            iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
-        }
-        
-        IndexWriter writer = new IndexWriter(dir, iwc);
-        
-        indexDocs(writer, doc);
-        
-        writer.close();
-        
-        
-        // 2. query
         String querystr = "love";
         
         // the "title" arg specifies the default field to use
         // when no field is explicitly specified in the query.
-        Query q = new QueryParser(Version.LUCENE_40, "title", analyzer).parse(querystr);
+        Query q = new QueryParser(Version.LUCENE_40, "lyrics", analyzer).parse(querystr);
         
         // 3. search
-        int hitsPerPage = 4;
+        int hitsPerPage = 48000;
         IndexReader reader = DirectoryReader.open(dir);
         IndexSearcher searcher = new IndexSearcher(reader);
         TopScoreDocCollector collector = TopScoreDocCollector.create(hitsPerPage, true);
@@ -168,6 +146,29 @@ public class MusicStats {
             }
             
         }
+    }
+    public static void Index() throws IOException{
+        // 1. create the index
+        StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_40);
+        Directory dir = FSDirectory.open(new File("index"));
+        final File doc = new File(finalFile_PATH);
+        
+        IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, analyzer);
+        
+        if (create) {
+            // Create a new index in the directory, removing any
+            // previously indexed documents:
+            iwc.setOpenMode(OpenMode.CREATE);
+        } else {
+            // Add new documents to an existing index:
+            iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
+        }
+        
+        IndexWriter writer = new IndexWriter(dir, iwc);
+        
+        indexDocs(writer, doc);
+        
+        writer.close();
     }
     private static void addDoc(IndexWriter w, String title, String isbn) throws IOException {
         Document doc = new Document();
