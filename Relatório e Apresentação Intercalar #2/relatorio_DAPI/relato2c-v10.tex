@@ -75,26 +75,24 @@ Para este trabalho, escolhemos a ferramenta \textit{open-source} Lucene. Com ela
 
 \section{Geração dos Índices}\label{sec:indices}
 
-Como pretendemos dar resposta às interrogações dos utilizadores, teríamos obrigatoriamente que gerar índices para aumentar a rapidez de resposta. No entanto, não faria sentido indexarmos todos os campos do dataset, em primeiro lugar porque seria um processo bastante moroso e, em segundo lugar, porque não faria sentido indexar, por exemplo, campos relativos ao ID da música já que não iria haver utilizadores a fazer interrogações por esse campo. Assim, estimámos quais os campos de pesquisa que mais vezes vão ser utilizados, e foram esses os escolhidos para a indexação. Desta forma, indexámos os campos \textit{lyrics} - que tem todas as palavras da letra da música - e \textit{artist}, que tem o nome do intérprete dessa música. Para isso, e tal como referido na secção anterior, utilizámos a biblioteca Lucene, que contempla funções de criação e gestão de índices, assim como auxiliares de pesquisa de informação.
+Como pretendemos dar resposta às interrogações dos utilizadores, teríamos obrigatoriamente que gerar índices para aumentar a rapidez de resposta. No entanto, não faria sentido indexarmos todos os campos do dataset, em primeiro lugar porque seria um processo bastante moroso e, em segundo lugar, porque não faria sentido indexar, por exemplo, campos relativos ao ID da música já que não iria haver utilizadores a fazer interrogações por esse campo. Assim, estimámos quais os campos de pesquisa que mais vezes vão ser utilizados, e foram esses os escolhidos para a indexação. Desta forma, indexámos os campos \textit{lyrics} - que tem todas as palavras da letra da música - \textit{artist}, com o nome do intérprete dessa música e \textit{tags} que nos indica quais as categorias em que a música se encaixa. Este último permite que os utilizadores pesquisem músicas que encaixem num determinado género. Para gerar esses índices, e tal como referido na secção anterior, utilizámos a biblioteca Lucene, que contempla funções de criação e gestão de índices, assim como auxiliares de pesquisa de informação.
 
 
 \section{Demonstração do processo de interrogação}\label{sec:demonstração}
 
-Como referido anteriomente, após o dataset estar devidamente construido, a sua consulta deve responder a uma variedade de perguntas, entre as quais podemos destacar:
+Depois de termos concluído o processo de indexação, prosseguimos para a parte da interrogação. Como a interface gráfica da plataforma ainda não está concluída, optamos por apresentar os resultados em formato de texto. Para efeitos de teste neste relatório, fizemos uma interrogação ao Lucene, para que ele nos devolvesse as músicas que tivessem a palavra \textit{love} incluída na letra ou no nome da banda. Assim, apresentando 10 resultados por página, eis os resultados obtidos:
 
-\begin{itemize}
-	\item Quais as palavras mais usadas em todas as canções;
-	\item Qual o género de músicas mais usado;
-	\item Qual o tema mais utilizado na composição de músicas;
-	\item Qual a Banda que mais músicas tem sobre determinado tema;
-	\item Quais as músicas que falam sobre determinado tema.
-\end{itemize}
 
-\begin{figure}[ht]
-\centerline{\includegraphics[scale=.36]{statistics.jpg}}
-\caption{{\it Há géneros que são mais ouvidos que outros, mas terá isso alguma ligação com o tema?}}  
-\label{fig:generos}
-\end{figure}
+
+\begin{verbatim}
+Found 4 hits.
+1. Indian Love Call
+2. Our Love Is Here To Stay
+3. (This Is Not A) Love Song (Live)
+4. Until You Love Someone
+\end{verbatim}
+
+Neste caso, usando um pequeno dataset para efeitos de teste, podemos perceber que existem 4 músicas cuja letra fala de amor, ordenadas por ordem de frequência do termo de pesquisa. Com a implementação da interface gráfica, poderemos alargar as pesquisas, e retornar os resultados de interrogações relativas, por exemplo, ao género de uma música.
 
 \section{Conclusões}\label{sec:conclude}
 
