@@ -1,9 +1,10 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.10.10)  22 NOV 2012 00:00
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.10.9)  22 NOV 2012 00:20
 entering extended mode
-**relato2c-v10.tex
+**C:/Users/Luis/DAPI-MusicStats/Relatório*e*Apresentação*Intercalar*#2/relat
+orio_DAPI/relato2c-v10.tex
 
-("C:\Users\Luis Gomes\Documents\NetBeansProjects\DAPI-MusicStats\Relatório e A
-presentação Intercalar #2\relatorio_DAPI\relato2c-v10.tex"
+("C:/Users/Luis/DAPI-MusicStats/Relatório e Apresentação Intercalar #2/relat
+orio_DAPI/relato2c-v10.tex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -345,7 +346,7 @@ Now handling font encoding U ...
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\indentfirst.sty"
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\lastpage\lastpage.sty"
+(C:\Users\Luis\AppData\Roaming\MiKTeX\2.9\tex\latex\lastpage\lastpage.sty
 Package: lastpage 2011/09/01 v1.2k Refers to last page's name (HMM; JPG)
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
@@ -380,7 +381,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@dimlist=\toks17
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
-("C:\Program Files\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
+(C:\Users\Luis\AppData\Roaming\MiKTeX\2.9\tex\latex\fancyhdr\fancyhdr.sty
 \fancy@headwidth=\skip43
 \f@ncyO@elh=\skip44
 \f@ncyO@erh=\skip45
@@ -391,8 +392,8 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \f@ncyO@olf=\skip50
 \f@ncyO@orf=\skip51
 )
-("C:\Users\Luis Gomes\Documents\NetBeansProjects\DAPI-MusicStats\Relatório e A
-presentação Intercalar #2\relatorio_DAPI\relato2c-v10.aux")
+("C:\Users\Luis\DAPI-MusicStats\Relatório e Apresentação Intercalar #2\relat
+orio_DAPI\relato2c-v10.aux")
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
 LaTeX Font Info:    ... okay on input line 50.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
@@ -406,11 +407,9 @@ LaTeX Font Info:    ... okay on input line 50.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
 LaTeX Font Info:    ... okay on input line 50.
 LaTeX Font Info:    Try loading font information for T1+lmr on input line 50.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+) (C:\Users\Luis\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count92
 \scratchdimen=\dimen114
@@ -547,7 +546,7 @@ Underfull \hbox (badness 3826) in paragraph at lines 69--70
 $\T1/lmtt/m/n/10 documentation$ \T1/lmr/m/n/10 Pla-ta-forma que con-t�m
  []
 
-[1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
+[1{C:/Users/Luis/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
 ]
@@ -601,25 +600,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 107--109
 
 AED: lastpage setting LastPage
 [2]
-("C:\Users\Luis Gomes\Documents\NetBeansProjects\DAPI-MusicStats\Relatório e A
-presentação Intercalar #2\relatorio_DAPI\relato2c-v10.aux") ) 
+("C:\Users\Luis\DAPI-MusicStats\Relatório e Apresentação Intercalar #2\relat
+orio_DAPI\relato2c-v10.aux") ) 
 Here is how much of TeX's memory you used:
- 2800 strings out of 494045
- 37126 string characters out of 3148371
- 103717 words of memory out of 3000000
- 6031 multiletter control sequences out of 15000+200000
+ 2799 strings out of 494045
+ 36999 string characters out of 3148390
+ 103709 words of memory out of 3000000
+ 6030 multiletter control sequences out of 15000+200000
  48792 words of font info for 42 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 27i,10n,43p,1173b,274s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program File
-s/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/MiKTeX 2.9/fonts/en
-c/dvips/lm/lm-mathsy.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmb
-x10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
-ic/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri10.pfb><
-C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb>
+ 27i,10n,43p,1260b,274s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/l
+m-ec.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}<C:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 
+2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
+ublic/lm/lmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb
+><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Program Files
+/MiKTeX 2.9/fonts/type1/public/lm/lmri10.pfb><C:/Program Files/MiKTeX 2.9/fonts
+/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/
+lmtt10.pfb>
 Output written on relato2c-v10.pdf (2 pages, 192161 bytes).
 PDF statistics:
  43 PDF objects out of 1000 (max. 8388607)
