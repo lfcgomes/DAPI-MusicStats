@@ -84,7 +84,7 @@ public class MusicStats {
         Query q = new QueryParser(Version.LUCENE_40, "title", analyzer).parse(querystr);
         
         // 3. search
-        int hitsPerPage = 10;
+        int hitsPerPage = 4;
         IndexReader reader = DirectoryReader.open(dir);
         IndexSearcher searcher = new IndexSearcher(reader);
         TopScoreDocCollector collector = TopScoreDocCollector.create(hitsPerPage, true);
