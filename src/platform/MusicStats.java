@@ -3,7 +3,6 @@
  * and open the template in the editor.
  */
 package platform;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,18 +19,18 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.Version;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.search.Query;
 import org.apache.lucene.store.FSDirectory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -46,20 +45,23 @@ public class MusicStats {
     public static final boolean create = false;
     
        
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args)  {
         
         // 0. Specify the analyzer for tokenizing text.
         //    The same analyzer should be used for indexing and searching
         GUI g = new GUI();
         g.show();
+    }
+    public static ArrayList<String> search(String query) throws IOException, ParseException {
         // query
         StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_40);
         Directory dir = FSDirectory.open(new File("index"));
-        String querystr = "love";
+        //String querystr = "love";
+        ArrayList<String> results = new ArrayList<String>();
         
         // the "title" arg specifies the default field to use
         // when no field is explicitly specified in the query.
-        Query q = new QueryParser(Version.LUCENE_40, "lyrics", analyzer).parse(querystr);
+        Query q = new QueryParser(Version.LUCENE_40, "lyrics", analyzer).parse(query);
         
         // 3. search
         int hitsPerPage = 48000;
@@ -75,11 +77,13 @@ public class MusicStats {
             int docId = hits[i].doc;
             Document d = searcher.doc(docId);
             System.out.println((i + 1) + ". " + d.get("title"));
+            results.add((i + 1) + ". " + d.get("title"));
         }
         
         // reader can only be closed when there
         // is no need to access the documents any more.
         reader.close();
+        return results;
     }
     
     static void indexDocs(IndexWriter writer, File file) throws IOException {
