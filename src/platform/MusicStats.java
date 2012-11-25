@@ -44,20 +44,23 @@ public class MusicStats {
     public static final String finalFile_PATH = "filesToIndex\\subfile.json";
     public static final boolean create = false;
     
-       
+    
     public static void main(String[] args)  {
         
         // 0. Specify the analyzer for tokenizing text.
         //    The same analyzer should be used for indexing and searching
+        /*try{
+         * Index();
+         * }catch(Exception e){}*/
         GUI g = new GUI();
         g.show();
     }
-    public static ArrayList<String> search(String query) throws IOException, ParseException {
+    public static ArrayList<Song> search(String query) throws IOException, ParseException {
         // query
         StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_40);
         Directory dir = FSDirectory.open(new File("index"));
         //String querystr = "love";
-        ArrayList<String> results = new ArrayList<String>();
+        ArrayList<Song> results = new ArrayList<Song>();
         
         // the "title" arg specifies the default field to use
         // when no field is explicitly specified in the query.
@@ -77,7 +80,10 @@ public class MusicStats {
             int docId = hits[i].doc;
             Document d = searcher.doc(docId);
             System.out.println((i + 1) + ". " + d.get("title"));
-            results.add((i + 1) + ". " + d.get("title"));
+            Song song = new Song();
+            song.setArtist(d.get("artist"));
+            song.setSongName(d.get("title"));
+            results.add(song);
         }
         
         // reader can only be closed when there
@@ -121,6 +127,7 @@ public class MusicStats {
                         //doc.add(new TextField("title", new BufferedReader(new InputStreamReader((FileInputStream)musica.get("title"), "UTF-8"))));
                         doc.add(new TextField("lyrics", musica.get("lyrics").toString(), Field.Store.YES));
                         doc.add(new TextField("title", musica.get("title").toString(), Field.Store.YES));
+                        doc.add(new TextField("artist", musica.get("artist").toString(), Field.Store.YES));
                         
                         
                         System.out.println(doc);
@@ -173,13 +180,5 @@ public class MusicStats {
         indexDocs(writer, doc);
         
         writer.close();
-    }
-    private static void addDoc(IndexWriter w, String title, String isbn) throws IOException {
-        Document doc = new Document();
-        doc.add(new TextField("title", title, Field.Store.YES));
-        
-        // use a string field for isbn because we don't want it tokenized
-        doc.add(new StringField("isbn", isbn, Field.Store.YES));
-        w.addDocument(doc);
     }
 }
