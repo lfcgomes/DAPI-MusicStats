@@ -6,7 +6,10 @@ package platform;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -45,11 +48,11 @@ public class GUI extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         submenuExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        submenuEditIndex = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MusicStats");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(1024, 768));
 
         searchBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +93,15 @@ public class GUI extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
+
+        submenuEditIndex.setText("Index Files");
+        submenuEditIndex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submenuEditIndexActionPerformed(evt);
+            }
+        });
+        jMenu2.add(submenuEditIndex);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -192,6 +204,62 @@ public class GUI extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_resultListActionPerformed
+
+    private void submenuEditIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuEditIndexActionPerformed
+        
+        MusicStats music = new MusicStats();
+        try {
+            File file = new File("index");
+            delete(file);
+            music.Index();
+            searchBox.setText("");
+            resultList.clear();
+        } catch (IOException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_submenuEditIndexActionPerformed
+    
+    
+    public static void delete(File file)
+    	throws IOException{
+        
+        
+    	if(file.isDirectory()){
+                
+    		//directory is empty, then delete it
+    		if(file.list().length==0){
+ 
+    		   file.delete();
+    		   System.out.println("Directory is deleted : " 
+                                                 + file.getAbsolutePath());
+ 
+    		}else{
+ 
+    		   //list all the directory contents
+        	   String files[] = file.list();
+ 
+        	   for (String temp : files) {
+        	      //construct the file structure
+        	      File fileDelete = new File(file, temp);
+ 
+        	      //recursive delete
+        	     delete(fileDelete);
+        	   }
+ 
+        	   //check the directory again, if empty then delete it
+        	   if(file.list().length==0){
+           	     file.delete();
+        	     //System.out.println("Directory is deleted : " + file.getAbsolutePath());
+        	   }
+    		}
+ 
+    	}else{
+    		//if file, then delete it
+    		file.delete();
+    		//System.out.println("File is deleted : " + file.getAbsolutePath());
+    	}
+    }
+
     
     /**
      * @param args the command line arguments
@@ -237,6 +305,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblartist;
     private java.awt.List resultList;
     private java.awt.TextField searchBox;
+    private javax.swing.JMenuItem submenuEditIndex;
     private javax.swing.JMenuItem submenuExit;
     // End of variables declaration//GEN-END:variables
 }
+
